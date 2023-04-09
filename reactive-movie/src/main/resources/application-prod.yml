@@ -1,0 +1,29 @@
+server:
+  port: ${SERVER_PORT}
+  error:
+    include-message: never
+    include-stacktrace: never
+    whitelabel:
+      enabled: false
+
+spring:
+  jpa:
+    show-sql: false
+  r2dbc:
+    url: r2dbc:postgresql://${R2DBC_HOST}/${R2DBC_DB}
+    username: ${R2DBC_USERNAME}
+    password: ${R2DBC_PASSWORD}
+ 
+logging:
+  level:
+    root: INFO
+    '[org.springframework.r2dbc]':  INFO
+    reactor:
+      netty:
+        http:
+          client: INFO  
+  
+  file:
+    name: /var/log/reactive-movie/reactive-movie.log
+    file-max-size: 10MB
+    file-max-history: 5

@@ -1,0 +1,42 @@
+---
+version: "3"
+services:
+  db:
+    container_name: postgres_db
+    image: postgres
+    volumes:
+      - ~/volumes/app-spring/pgadmin/postgresql/:/var/lib/postgresql/data/
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_DB: reactor
+    ports:
+      - 5432:5432
+    networks:
+      - postgres_network
+      
+  reactive-movie:
+    image: movie:latest
+    container_name: reactive-movie
+    build:
+      context: ../reactive-movie
+      args:
+        R2DBC_HOST: ${R2DBC_HOST}
+        R2DBC_DB: ${R2DBC_DB}
+        PROFILE: ${PROFILE}
+        R2DBC_USERNAME: ${R2DBC_USERNAME}
+        R2DBC_PASSWORD: ${R2DBC_PASSWORD}
+        SERVER_PORT: ${SERVER_PORT}
+    env_file:
+      - .env 
+    depends_on:
+      - db
+    ports:
+      - ${SERVER_PORT}:${SERVER_PORT}
+
+    networks:
+      - postgres_network
+
+networks:
+  postgres_network:
+    driver: bridge
