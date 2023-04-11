@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 
 
 import com.example.demo.rotuters.exceptions.ResponseException;
+import com.example.demo.rotuters.exceptions.utils.ConstantUtil;
 
 
 @RestControllerAdvice
@@ -44,7 +45,7 @@ public class ExceptionController {
 	
 		  ResponseException response = new ResponseException();
 		  response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
-		  response.setErrors( List.of( "Oops internal Server Error", error.getMessage() ));
+		  response.setErrors( List.of( ConstantUtil.SERVER_ERROR ));
 
 		  return  badRequest().body(response);
 	}

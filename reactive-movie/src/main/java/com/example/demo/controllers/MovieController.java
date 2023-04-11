@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,12 +35,18 @@ public class MovieController {
 		return this.movieService.welcomeMessage().map(ResponseEntity::ok);
 	}
 	
-	@PostMapping("/movie")
-	public Mono<ResponseEntity<MovieDTO>> save(@RequestBody @Valid Mono<MovieDTO> request){
+	@PostMapping
+	public Mono<ResponseEntity<MovieDTO>> save( @Valid @RequestBody Mono<MovieDTO> request){
 		return this.movieService.save(request).map(movie -> ResponseEntity.status(HttpStatus.CREATED).body(movie));
 	}
 
-	@GetMapping("/movie/{id}")
+	@PutMapping("/{id}")
+	public Mono<ResponseEntity<MovieDTO>> update(@PathVariable UUID id,  @Valid @RequestBody  Mono<MovieDTO> request){
+		return this.movieService.update(id, request).map(movie -> ResponseEntity.status(HttpStatus.CREATED).body(movie));
+	}
+
+	
+	@GetMapping("/{id}")
 	public Mono<ResponseEntity<MovieDTO>> movie(@PathVariable UUID id){
 		return this.movieService.movieById(id)
 								.map(ResponseEntity::ok)
@@ -52,7 +59,7 @@ public class MovieController {
 	}
 
 	
-	@DeleteMapping("/movie/{id}")
+	@DeleteMapping("/{id}")
 	public Mono< ResponseEntity<Void>> delete(@PathVariable UUID id){
 		return this.movieService.deleteById(id).map(ResponseEntity::ok);
 	}

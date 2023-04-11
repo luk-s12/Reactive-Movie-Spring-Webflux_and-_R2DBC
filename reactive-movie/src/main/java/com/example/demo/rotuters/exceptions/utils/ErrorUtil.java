@@ -1,4 +1,4 @@
-package com.example.demo.utils;
+package com.example.demo.rotuters.exceptions.utils;
 
 import java.util.HashMap;
 import java.util.List;
@@ -22,12 +22,12 @@ import jakarta.validation.Validator;
 import reactor.core.publisher.Mono;
 
 @Component
-public class ErrorUtil {
+public final class ErrorUtil {
 
 	@Autowired
 	private Validator validator;
 
-	public <T> Mono<?> constraintViolation(T object) {
+	public <T> Mono<T> constraintViolation(T object) {
 		Set<ConstraintViolation<T>> violations = validator.validate(object);
 		Map<String, Object> errors = new HashMap<>();
 		ConstraintException response = new ConstraintException();
@@ -45,7 +45,7 @@ public class ErrorUtil {
 
 	public static BiFunction<Throwable, ServerRequest, Mono<ServerResponse>> globalErrorHandler() {
 		return (error, request) -> {
-			return responseException(HttpStatus.INTERNAL_SERVER_ERROR.value(), error.getMessage());
+			return responseException(HttpStatus.INTERNAL_SERVER_ERROR.value(), ConstantUtil.SERVER_ERROR);
 		};
 	}
 

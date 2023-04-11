@@ -2,6 +2,8 @@ package com.example.demo.services.impl;
 
 import java.util.UUID;
 
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -9,8 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.example.demo.mappers.MovieMapper;
 import com.example.demo.model.dtos.MovieDTO;
 import com.example.demo.repositories.MovieRepository;
+import com.example.demo.rotuters.exceptions.utils.ErrorUtil;
 import com.example.demo.services.MovieService;
-import com.example.demo.utils.ErrorUtil;
 
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -36,12 +38,23 @@ public class MoviesServiceImpl implements MovieService {
 	@Override
 	public Mono<MovieDTO> save(Mono<MovieDTO> movieMono) {
 		return movieMono.flatMap( movie -> this.errorUtil.constraintViolation(movie) )
-						.cast(MovieDTO.class)
 						.map(movieMapper::toEntity)
 						.flatMap(movieRepository::save) 
 						.map(movieMapper::toDto);
 	}
-		
+	
+	@Transactional
+	@Override
+	public Mono<MovieDTO> update(UUID uuidMono, Mono<MovieDTO> movieMono) {
+		return this.movieRepository.findById(uuidMono)
+								   .flatMap( movieEntity -> movieMono
+										   					.map( movie -> this.movieMapper.toUpdate(movie, movieEntity))
+										   					.doOnNext(movie -> movie.setId( uuidMono ) ))
+								   .flatMap(movieRepository::save)
+								   .map(this.movieMapper::toDto);
+	}
+	
+	
 	@Transactional(readOnly = true)
 	@Override
 	public Mono<MovieDTO> movieById(UUID id) {

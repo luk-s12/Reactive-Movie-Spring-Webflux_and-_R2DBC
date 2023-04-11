@@ -2,6 +2,7 @@ package com.example.demo.rotuters;
 
 import org.springframework.context.annotation.Bean;
 
+
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
 import org.springframework.web.reactive.function.server.RouterFunction;
@@ -12,8 +13,8 @@ import static org.springframework.web.reactive.function.server.RequestPredicates
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.example.demo.rotuters.exceptions.ConstraintException;
+import com.example.demo.rotuters.exceptions.utils.ErrorUtil;
 import com.example.demo.rotuters.handlers.MovieHandler;
-import com.example.demo.utils.ErrorUtil;
 
 @Configuration
 public class MovieRouter {
@@ -33,10 +34,11 @@ public class MovieRouter {
 		return RouterFunctions
 				.route( )
 				. GET("welcome", movieHandler::welcomeMessage)
-				. POST("movie", accept(MediaType.APPLICATION_JSON), movieHandler::save)
-				. GET("/movie/{id}", accept(MediaType.APPLICATION_JSON), movieHandler::movieById)
-				. GET("", accept(MediaType.APPLICATION_JSON), movieHandler::movies)
-				. DELETE("/movie/{id}", accept(MediaType.APPLICATION_JSON), movieHandler::deleteById)
+				. POST(accept(MediaType.APPLICATION_JSON), movieHandler::save)
+				. PUT("/{id}", accept(MediaType.APPLICATION_JSON), movieHandler::update)
+				. GET("/{id}", accept(MediaType.APPLICATION_JSON), movieHandler::movieById)
+				. GET(accept(MediaType.APPLICATION_JSON), movieHandler::movies)
+				. DELETE("/{id}", accept(MediaType.APPLICATION_JSON), movieHandler::deleteById)
 				.onError(ConstraintException.class, ErrorUtil.customExceptionHandler())
 				.onError(Exception.class, ErrorUtil.globalErrorHandler() )
 				.build();			
