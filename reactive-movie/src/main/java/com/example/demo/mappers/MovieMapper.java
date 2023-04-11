@@ -24,8 +24,6 @@ public interface MovieMapper {
 	
 	@BeforeMapping
 	default void setCreatedAt(@MappingTarget Movie movie) {
-		
-		if(movie.getId() == null)
 			movie.setCreatedAt( Instant.now() );
 	}
 	
