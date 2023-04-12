@@ -45,11 +45,11 @@ public class MoviesServiceImpl implements MovieService {
 	
 	@Transactional
 	@Override
-	public Mono<MovieDTO> update(UUID uuidMono, Mono<MovieDTO> movieMono) {
-		return this.movieRepository.findById(uuidMono)
+	public Mono<MovieDTO> update(UUID uuid, Mono<MovieDTO> movieMono) {
+		return this.movieRepository.findById(uuid)
 								   .flatMap( movieEntity -> movieMono
 										   					.map( movie -> this.movieMapper.toUpdate(movie, movieEntity))
-										   					.doOnNext(movie -> movie.setId( uuidMono ) ))
+										   					.doOnNext(movie -> movie.setId( movieEntity.getId() ) ))
 								   .flatMap(movieRepository::save)
 								   .map(this.movieMapper::toDto);
 	}
