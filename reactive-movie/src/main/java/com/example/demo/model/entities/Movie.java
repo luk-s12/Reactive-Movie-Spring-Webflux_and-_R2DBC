@@ -58,4 +58,9 @@ public class Movie {
 		this.createdAt = createdAt;
 	}
 
+	@Override
+	public String toString() {
+		return "Movie [id=" + id + ", title=" + title + ", description=" + description + ", createdAt=" + createdAt + "]";
+	}
+	
 }

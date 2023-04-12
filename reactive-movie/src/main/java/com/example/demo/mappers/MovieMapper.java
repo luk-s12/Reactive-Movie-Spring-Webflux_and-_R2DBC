@@ -20,6 +20,7 @@ public interface MovieMapper {
 	Movie toEntity(MovieDTO movieDTO);	
 	
 	@Mapping(target = "createdAt", ignore = true)
+	@Mapping(target = "id", ignore = true)
 	Movie toEntity(MovieDTO movieDTO, @MappingTarget Movie movie);	
 	
 	@BeforeMapping
@@ -27,4 +28,5 @@ public interface MovieMapper {
 		if(movie.getId() == null)
 			movie.setCreatedAt( Instant.now() );
 	}
+	
 }

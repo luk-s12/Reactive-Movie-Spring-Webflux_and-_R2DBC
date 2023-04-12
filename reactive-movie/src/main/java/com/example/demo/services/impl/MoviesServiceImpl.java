@@ -1,8 +1,7 @@
 package com.example.demo.services.impl;
 
 import java.util.UUID;
-
-
+import java.util.logging.Level;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -47,9 +46,8 @@ public class MoviesServiceImpl implements MovieService {
 	@Override
 	public Mono<MovieDTO> update(UUID uuid, Mono<MovieDTO> movieMono) {
 		return this.movieRepository.findById(uuid)
-								   .flatMap( movieEntity -> movieMono
-										   					.map( movie -> this.movieMapper.toEntity(movie, movieEntity))
-										   					.doOnNext(movie -> movie.setId( movieEntity.getId() ) ))
+								   .flatMap( movieEntity -> movieMono.map( movie -> this.movieMapper.toEntity(movie, movieEntity)) )
+								   .log("Update", Level.INFO)
 								   .flatMap(movieRepository::save)
 								   .map(this.movieMapper::toDto);
 	}
