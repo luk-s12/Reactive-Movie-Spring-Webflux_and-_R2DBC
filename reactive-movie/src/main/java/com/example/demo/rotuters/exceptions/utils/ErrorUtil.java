@@ -45,7 +45,7 @@ public final class ErrorUtil {
 
 	public static BiFunction<Throwable, ServerRequest, Mono<ServerResponse>> globalErrorHandler() {
 		return (error, request) -> {
-			return responseException(HttpStatus.INTERNAL_SERVER_ERROR.value(), ConstantUtil.SERVER_ERROR);
+			return responseException(HttpStatus.INTERNAL_SERVER_ERROR.value(), List.of( ConstantUtil.SERVER_ERROR, error.getMessage()) );
 		};
 	}
 

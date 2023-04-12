@@ -37,7 +37,7 @@ public class MovieRouter {
 				. POST(accept(MediaType.APPLICATION_JSON), movieHandler::save)
 				. PUT("/{id}", accept(MediaType.APPLICATION_JSON), movieHandler::update)
 				. GET("/{id}", accept(MediaType.APPLICATION_JSON), movieHandler::movieById)
-				. GET(accept(MediaType.APPLICATION_JSON), movieHandler::movies)
+				. GET(movieHandler::movies)
 				. DELETE("/{id}", accept(MediaType.APPLICATION_JSON), movieHandler::deleteById)
 				.onError(ConstraintException.class, ErrorUtil.customExceptionHandler())
 				.onError(Exception.class, ErrorUtil.globalErrorHandler() )
