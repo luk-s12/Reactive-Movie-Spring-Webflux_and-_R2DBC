@@ -48,7 +48,7 @@ public class MoviesServiceImpl implements MovieService {
 	public Mono<MovieDTO> update(UUID uuid, Mono<MovieDTO> movieMono) {
 		return this.movieRepository.findById(uuid)
 								   .flatMap( movieEntity -> movieMono
-										   					.map( movie -> this.movieMapper.toUpdate(movie, movieEntity))
+										   					.map( movie -> this.movieMapper.toEntity(movie, movieEntity))
 										   					.doOnNext(movie -> movie.setId( movieEntity.getId() ) ))
 								   .flatMap(movieRepository::save)
 								   .map(this.movieMapper::toDto);
