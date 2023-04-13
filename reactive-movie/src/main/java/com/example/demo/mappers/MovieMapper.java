@@ -1,7 +1,5 @@
 package com.example.demo.mappers;
 
-import java.time.Instant;
-
 import org.mapstruct.BeforeMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -10,6 +8,7 @@ import org.mapstruct.MappingTarget;
 
 import com.example.demo.model.dtos.MovieDTO;
 import com.example.demo.model.entities.Movie;
+import com.example.demo.utils.TimestampUtil;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface MovieMapper {
@@ -26,7 +25,7 @@ public interface MovieMapper {
 	@BeforeMapping
 	default void setCreatedAt(@MappingTarget Movie movie) {
 		if(movie.getId() == null)
-			movie.setCreatedAt( Instant.now() );
+			movie.setCreatedAt( TimestampUtil.create() );
 	}
 	
 }
