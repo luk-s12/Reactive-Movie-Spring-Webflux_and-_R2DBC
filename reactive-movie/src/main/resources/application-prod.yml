@@ -7,8 +7,6 @@ server:
       enabled: false
 
 spring:
-  jpa:
-    show-sql: false
   r2dbc:
     url: r2dbc:postgresql://${R2DBC_HOST}/${R2DBC_DB}
     username: ${R2DBC_USERNAME}

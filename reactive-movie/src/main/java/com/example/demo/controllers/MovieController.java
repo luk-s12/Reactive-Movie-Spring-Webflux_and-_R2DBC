@@ -42,9 +42,8 @@ public class MovieController {
 
 	@PutMapping("/{id}")
 	public Mono<ResponseEntity<MovieDTO>> update(@PathVariable UUID id,  @Valid @RequestBody  Mono<MovieDTO> request){
-		return this.movieService.update(id, request).map(movie -> ResponseEntity.status(HttpStatus.CREATED).body(movie));
+		return this.movieService.update(id, request).map(movie -> ResponseEntity.status(HttpStatus.OK).body(movie));
 	}
-
 	
 	@GetMapping("/{id}")
 	public Mono<ResponseEntity<MovieDTO>> movie(@PathVariable UUID id){
@@ -57,11 +56,9 @@ public class MovieController {
 	public Flux<MovieDTO> movies(){
 		return this.movieService.movies();
 	}
-
 	
 	@DeleteMapping("/{id}")
 	public Mono< ResponseEntity<Void>> delete(@PathVariable UUID id){
 		return this.movieService.deleteById(id).map(ResponseEntity::ok);
-	}
-	
+	}	
 }
