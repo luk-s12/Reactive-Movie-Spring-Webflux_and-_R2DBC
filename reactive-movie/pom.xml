@@ -90,6 +90,21 @@
 				<server.port>${SERVER_PORT}</server.port>
 			</properties>
 		</profile>
+		<profile>
+			<id>test</id>
+			<properties>
+				<spring.profiles.active>test</spring.profiles.active>
+			</properties>
+			<build>
+				<resources>
+					<resource>
+						<directory>src/test/resources</directory>
+						<filtering>true</filtering>
+					</resource>
+				</resources>
+			</build>
+		</profile>
+
 	</profiles>
 	<build>
 		<resources>
