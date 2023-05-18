@@ -1,3 +1,4 @@
+const movies = new EventSource("//localhost:8080/api/v2/movies/sse/sink");
 
 const form = () => {
     document.getElementById("form").addEventListener("submit", event => {
@@ -20,10 +21,8 @@ const save = (data) => {
     })
 }
 
+
 const movie = () => {
-
-    const movies = new EventSource("//localhost:8080/api/v2/movies/sse/sink");
-
     movies.onmessage = (event) => {
         const notification = document.getElementById("notification");
 
@@ -35,10 +34,7 @@ const movie = () => {
         `;
 
         notification.insertAdjacentHTML("beforeend", element);
-
-
     };
-
 };
 
 form();
