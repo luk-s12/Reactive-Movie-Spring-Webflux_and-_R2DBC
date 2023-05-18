@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+
+    <title>Sink test</title>
+</head>
+<body>
+    <main>
+        <h1 class="title">Sink Test</h1>
+        <section>
+            <form  class="form" id="form" >
+                <div class="form__container">
+                    <h1 class="form__title">New Movie</h1>
+                    <div class="form__group">
+                        <input type="text" id="title" class="form__input" placeholder=" ">
+                        <label for="title" class="form__label">Title</label>
+                        <span class="form__line"></span>
+                    </div>
+                    <div class="form__group">
+                        <input type="text" id="description" class="form__input" placeholder=" ">
+                        <label for="description" class="form__label">Description</label>
+                        <span class="form__line"></span>
+                    </div>
+    
+                    <input type="submit" class="form__submit" value="Save">
+                </div>
+            </form>
+        </section>
+        <section class="table">
+            <header class="table__header">
+              <div class="table__row table__row--bold">Message</div>
+              <div class="table__row table__row--bold">Title</div>
+            </header>
+            <div class="table__notification" id="notification"></div>
+          </section>
+    </main>
+    <script src="main.js"></script>
+</body>
+</html>

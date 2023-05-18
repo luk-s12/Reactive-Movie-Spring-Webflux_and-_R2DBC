@@ -20,7 +20,7 @@ function testCors() {
 testCors();
 
 
-var movies = new EventSource("//localhost:8080/api/v2/movies/sse");
+const movies = new EventSource("//localhost:8080/api/v2/movies/sse");
 
 movies.onmessage = (event) => {
     const movies = document.getElementById("movies");

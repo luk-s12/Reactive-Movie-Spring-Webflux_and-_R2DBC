@@ -2,6 +2,7 @@ package com.example.demo.services.impl;
 
 import java.time.Duration;
 
+
 import java.util.UUID;
 import java.util.logging.Level;
 
@@ -11,12 +12,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.mappers.MovieMapper;
 import com.example.demo.model.dtos.MovieDTO;
+import com.example.demo.model.dtos.MovieInfoDTO;
 import com.example.demo.repositories.MovieRepository;
 import com.example.demo.routers.exceptions.utils.ErrorUtil;
 import com.example.demo.services.MovieService;
 
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+import reactor.core.publisher.Sinks.Many;
 
 @Service
 public class MoviesServiceImpl implements MovieService {
@@ -30,6 +33,9 @@ public class MoviesServiceImpl implements MovieService {
 	@Autowired
 	private ErrorUtil errorUtil;
 	
+	@Autowired
+	private Many<MovieInfoDTO> moviInfoSink;
+	
 	@Override
 	public Mono<String> welcomeMessage() {
 		return Mono.just("Welcome to the Asynchronous Movie API");
@@ -41,6 +47,7 @@ public class MoviesServiceImpl implements MovieService {
 		return movieMono.flatMap( movie -> this.errorUtil.constraintViolation(movie) )
 						.map(movieMapper::toEntity)
 						.flatMap(movieRepository::save) 
+						.doOnNext(newMovie -> this.moviInfoSink.tryEmitNext(new MovieInfoDTO("New movie added.", newMovie.getTitle())))
 						.map(movieMapper::toDto);
 	}
 	
