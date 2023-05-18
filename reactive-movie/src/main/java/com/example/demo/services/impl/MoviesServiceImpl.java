@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.example.demo.mappers.MovieMapper;
 import com.example.demo.model.dtos.MovieDTO;
 import com.example.demo.repositories.MovieRepository;
-import com.example.demo.rotuters.exceptions.utils.ErrorUtil;
+import com.example.demo.routers.exceptions.utils.ErrorUtil;
 import com.example.demo.services.MovieService;
 
 import reactor.core.publisher.Flux;

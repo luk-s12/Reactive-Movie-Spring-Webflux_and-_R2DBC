@@ -1,4 +1,4 @@
-package com.example.demo.rotuters.exceptions;
+package com.example.demo.routers.exceptions;
 
 import java.util.Map;
 

@@ -1,4 +1,4 @@
-package com.example.demo.rotuters.handlers;
+package com.example.demo.routers.handlers;
 
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;

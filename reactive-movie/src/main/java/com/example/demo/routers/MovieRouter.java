@@ -1,4 +1,4 @@
-package com.example.demo.rotuters;
+package com.example.demo.routers;
 
 import org.springframework.context.annotation.Bean;
 
@@ -12,9 +12,9 @@ import static org.springframework.web.reactive.function.server.RequestPredicates
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.example.demo.rotuters.exceptions.ConstraintException;
-import com.example.demo.rotuters.exceptions.utils.ErrorUtil;
-import com.example.demo.rotuters.handlers.MovieHandler;
+import com.example.demo.routers.exceptions.ConstraintException;
+import com.example.demo.routers.exceptions.utils.ErrorUtil;
+import com.example.demo.routers.handlers.MovieHandler;
 
 @Configuration
 public class MovieRouter {

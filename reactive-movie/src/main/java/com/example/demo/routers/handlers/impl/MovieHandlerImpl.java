@@ -1,4 +1,4 @@
-package com.example.demo.rotuters.handlers.impl;
+package com.example.demo.routers.handlers.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -15,8 +15,8 @@ import static org.springframework.web.reactive.function.server.ServerResponse.no
 
 
 import com.example.demo.model.dtos.MovieDTO;
-import com.example.demo.rotuters.exceptions.utils.ErrorUtil;
-import com.example.demo.rotuters.handlers.MovieHandler;
+import com.example.demo.routers.exceptions.utils.ErrorUtil;
+import com.example.demo.routers.handlers.MovieHandler;
 import com.example.demo.services.MovieService;
 import com.example.demo.utils.CastUtil;
 

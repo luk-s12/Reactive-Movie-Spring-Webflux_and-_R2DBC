@@ -13,9 +13,8 @@ import org.springframework.web.bind.support.WebExchangeBindException;
 import static org.springframework.http.ResponseEntity.badRequest;
 import org.springframework.http.ResponseEntity;
 
-
-import com.example.demo.rotuters.exceptions.ResponseException;
-import com.example.demo.rotuters.exceptions.utils.ConstantUtil;
+import com.example.demo.routers.exceptions.ResponseException;
+import com.example.demo.routers.exceptions.utils.ConstantUtil;
 
 
 @RestControllerAdvice

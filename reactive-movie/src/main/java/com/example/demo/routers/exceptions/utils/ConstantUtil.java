@@ -1,4 +1,4 @@
-package com.example.demo.rotuters.exceptions.utils;
+package com.example.demo.routers.exceptions.utils;
 
 public final class ConstantUtil {
 

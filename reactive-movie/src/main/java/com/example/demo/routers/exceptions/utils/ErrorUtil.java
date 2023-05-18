@@ -1,4 +1,4 @@
-package com.example.demo.rotuters.exceptions.utils;
+package com.example.demo.routers.exceptions.utils;
 
 import java.util.HashMap;
 import java.util.List;
@@ -11,11 +11,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
-import static org.springframework.web.reactive.function.server.ServerResponse.status;
 
-import com.example.demo.rotuters.exceptions.ConstraintException;
-import com.example.demo.rotuters.exceptions.ResponseException;
-import com.example.demo.rotuters.exceptions.RouterException;
+import com.example.demo.routers.exceptions.ConstraintException;
+import com.example.demo.routers.exceptions.ResponseException;
+import com.example.demo.routers.exceptions.RouterException;
+
+import static org.springframework.web.reactive.function.server.ServerResponse.status;
 
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validator;
