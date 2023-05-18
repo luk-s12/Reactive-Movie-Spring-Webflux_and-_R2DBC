@@ -70,7 +70,13 @@ public class MovieHandlerImpl implements MovieHandler {
 
 	@Override
 	public Mono<ServerResponse> movies(ServerRequest request) {
-		return ok().contentType(MediaType.TEXT_EVENT_STREAM).body( this.movieService.movies(), MovieDTO.class );
+		return ok().body( this.movieService.movies(), MovieDTO.class );
+	}
+
+	@Override
+	public Mono<ServerResponse> moviesSSE(ServerRequest request) {
+		return ok().contentType(MediaType.TEXT_EVENT_STREAM).body( this.movieService.moviesSSE(), MovieDTO.class );
+
 	}
 
 	@Override
@@ -80,5 +86,6 @@ public class MovieHandlerImpl implements MovieHandler {
 				.flatMap(this.movieService::deleteById)				
 				.then( noContent().build() );
 	}
+
 
 }

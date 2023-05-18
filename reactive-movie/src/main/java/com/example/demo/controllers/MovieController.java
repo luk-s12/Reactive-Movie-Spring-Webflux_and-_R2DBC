@@ -52,9 +52,14 @@ public class MovieController {
 								.defaultIfEmpty(ResponseEntity.noContent().build());
 	}
 	
-	@GetMapping(produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public Flux<MovieDTO> movies(){
 		return this.movieService.movies();
+	}
+	
+	@GetMapping(value="/sse", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+	public Flux<MovieDTO> moviesSSE(){
+		return this.movieService.moviesSSE();
 	}
 	
 	@DeleteMapping("/{id}")

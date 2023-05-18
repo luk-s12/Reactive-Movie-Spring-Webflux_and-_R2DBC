@@ -11,6 +11,7 @@ import org.springframework.web.reactive.function.BodyInserters;
 import com.example.demo.model.dtos.MovieDTO;
 import com.example.demo.model.entities.Movie;
 import com.example.demo.repositories.MovieRepository;
+import com.example.demo.utils.ApiConstants;
 import com.example.demo.utils.TimestampUtil;
 
 import org.junit.jupiter.api.Test;
@@ -50,7 +51,7 @@ public class MovieControllerTest {
 	@DisplayName("You should get the welcome message")
 	public void welcome() {
 		this.client.get()
-				   .uri("/api/v1/movies/welcome")
+				   .uri( ApiConstants.WELCOME_V1 )
 				   .exchange().expectStatus().isOk()
 				   .expectBody(String.class)
 				   .isEqualTo("Welcome to the Asynchronous Movie API");
@@ -61,7 +62,7 @@ public class MovieControllerTest {
 	public void save() {
 		
 		this.client.post()
-				   .uri("/api/v1/movies")
+				   .uri(ApiConstants.MOVIES_V1)
 	               .contentType(MediaType.APPLICATION_JSON)
 	               .body(BodyInserters.fromValue(this.movieDto))
 				   .exchange()
@@ -79,7 +80,7 @@ public class MovieControllerTest {
 		Movie movieResponse = this.movieRepository.save(movieEntity).block();
 		
 		this.client.put()
-				   .uri("/api/v1/movies/{id}", movieResponse.getId() )
+				   .uri(ApiConstants.MOVIES_BY_ID_V1, movieResponse.getId() )
 	               .contentType(MediaType.APPLICATION_JSON)
 	               .body(BodyInserters.fromValue( this.movieDto) )
 				   .exchange()
@@ -109,7 +110,7 @@ public class MovieControllerTest {
 		Movie movieResponse = this.movieRepository.save( this.movieEntity).block();
 		
 		this.client.get()
-				   .uri("/api/v1/movies/{id}", movieResponse.getId() )
+				   .uri(ApiConstants.MOVIES_BY_ID_V1, movieResponse.getId() )
 				   .exchange()
 	               .expectStatus().isOk()
 			       .expectBody(MovieDTO.class)
@@ -125,11 +126,10 @@ public class MovieControllerTest {
 	@DisplayName("If I search for all the movies, then it should return the nine movies")
 	public void movies() {
 		this.client.get()
-				   .uri("/api/v1/movies")
-		           .accept(MediaType.TEXT_EVENT_STREAM)
+				   .uri(ApiConstants.MOVIES_V1)
 				   .exchange()
 	               .expectStatus().isOk()
-	               .expectHeader().contentType("text/event-stream;charset=UTF-8")
+	           	   .expectHeader().contentType(MediaType.APPLICATION_JSON)
 	               .expectBodyList(MovieDTO.class)
 	               .hasSize(9)
 	               .value( movies -> {
@@ -144,7 +144,7 @@ public class MovieControllerTest {
 		Movie movieResponse = this.movieRepository.save(movieEntity).block();
 		
 		this.client.delete()
-				   .uri("/api/v1/movies/{id}", movieResponse.getId() )
+				   .uri(ApiConstants.MOVIES_BY_ID_V1, movieResponse.getId() )
 				   .exchange()
 	               .expectStatus().isOk()
                    .expectBody(Void.class);

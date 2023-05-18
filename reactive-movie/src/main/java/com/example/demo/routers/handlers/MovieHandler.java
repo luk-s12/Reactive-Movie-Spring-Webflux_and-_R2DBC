@@ -12,6 +12,7 @@ public interface MovieHandler {
 	public Mono<ServerResponse> update(ServerRequest request);
 	public Mono<ServerResponse> movieById(ServerRequest request);
 	public Mono<ServerResponse> movies(ServerRequest request);
+	public Mono<ServerResponse> moviesSSE(ServerRequest request);
 	public Mono<ServerResponse> deleteById(ServerRequest request);
 	
 }

@@ -20,7 +20,7 @@ function testCors() {
 testCors();
 
 
-var movies = new EventSource("//localhost:8080/api/v2/movies");
+var movies = new EventSource("//localhost:8080/api/v2/movies/sse");
 
 movies.onmessage = (event) => {
     const movies = document.getElementById("movies");
@@ -35,7 +35,7 @@ movies.onmessage = (event) => {
     movies.appendChild(movie);
 };
 
-setTimeout(() => movies.close(), "2000");
+setTimeout(() => movies.close(), "5000");
 
 
 

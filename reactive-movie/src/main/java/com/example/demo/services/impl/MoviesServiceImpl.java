@@ -1,5 +1,7 @@
 package com.example.demo.services.impl;
 
+import java.time.Duration;
+
 import java.util.UUID;
 import java.util.logging.Level;
 
@@ -15,7 +17,6 @@ import com.example.demo.services.MovieService;
 
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-import reactor.core.publisher.SignalType;
 
 @Service
 public class MoviesServiceImpl implements MovieService {
@@ -67,7 +68,16 @@ public class MoviesServiceImpl implements MovieService {
 	public Flux<MovieDTO> movies() {
 		return this.movieRepository
 				   .findAll()
-				   .map(this.movieMapper::toDto);		   
+				   .map(this.movieMapper::toDto);	   
+	}
+
+	@Transactional(readOnly = true)
+	@Override
+	public Flux<MovieDTO> moviesSSE() {
+		return this.movieRepository
+				   .findAll()
+				   .map(this.movieMapper::toDto)
+				   .delayElements( Duration.ofSeconds(1) );		   
 	}
 
 	@Transactional
@@ -75,5 +85,6 @@ public class MoviesServiceImpl implements MovieService {
 	public Mono<Void> deleteById(UUID id) {
 		return this.movieRepository.deleteById(id);
 	}
+
 
 }

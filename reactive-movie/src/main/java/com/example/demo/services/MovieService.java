@@ -14,6 +14,7 @@ public interface MovieService {
 	public Mono<MovieDTO> update(UUID uuid, Mono<MovieDTO> movieDTO);
 	public Mono<MovieDTO> movieById(UUID id);
 	public Flux<MovieDTO> movies();
+	public Flux<MovieDTO> moviesSSE();
 	public Mono<Void> deleteById(UUID id);
 	
 }
