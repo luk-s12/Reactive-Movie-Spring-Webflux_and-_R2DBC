@@ -2,6 +2,7 @@ package com.example.demo.routers.handlers.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
@@ -15,11 +16,13 @@ import static org.springframework.web.reactive.function.server.ServerResponse.no
 
 
 import com.example.demo.model.dtos.MovieDTO;
+import com.example.demo.model.dtos.MovieInfoDTO;
 import com.example.demo.routers.exceptions.utils.ErrorUtil;
 import com.example.demo.routers.handlers.MovieHandler;
 import com.example.demo.services.MovieService;
 import com.example.demo.utils.CastUtil;
 
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Component
@@ -30,7 +33,10 @@ public class MovieHandlerImpl implements MovieHandler {
 	
 	@Autowired
 	private MovieService movieService;
-
+	
+	@Autowired
+	private Flux<MovieInfoDTO> moviInfoLog;
+	
 	@Override
 	public Mono<ServerResponse> welcomeMessage(ServerRequest request) {
 		return ok()
@@ -48,7 +54,6 @@ public class MovieHandlerImpl implements MovieHandler {
 									.contentType(MediaType.APPLICATION_JSON)
 									.body( movie, MovieDTO.class) );
 	}
-
 	@Override
 	public Mono<ServerResponse> update(ServerRequest request) {	
 		Mono<MovieDTO> movieMono = request.bodyToMono(MovieDTO.class);
@@ -78,7 +83,12 @@ public class MovieHandlerImpl implements MovieHandler {
 		return ok().contentType(MediaType.TEXT_EVENT_STREAM).body( this.movieService.moviesSSE(), MovieDTO.class );
 
 	}
+	@Override
+	public Mono<ServerResponse> moviesSink(ServerRequest request) {
+		return ok().contentType(MediaType.TEXT_EVENT_STREAM).body( this.moviInfoLog, MovieDTO.class );
+	}
 
+	
 	@Override
 	public Mono<ServerResponse> deleteById(ServerRequest request) {
 		String id = request.pathVariable("id") ;
@@ -86,6 +96,4 @@ public class MovieHandlerImpl implements MovieHandler {
 				.flatMap(this.movieService::deleteById)				
 				.then( noContent().build() );
 	}
-
-
 }

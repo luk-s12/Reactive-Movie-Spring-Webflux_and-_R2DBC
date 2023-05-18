@@ -3,15 +3,13 @@ package com.example.demo.routers;
 import org.springframework.context.annotation.Bean;
 
 
+
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
-import org.springframework.web.reactive.function.server.RequestPredicates;
 import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.RouterFunctions;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import static org.springframework.web.reactive.function.server.RequestPredicates.accept;
-
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -38,6 +36,7 @@ public class MovieRouter {
 				.route( )
 				. GET("welcome", movieHandler::welcomeMessage)
 				. GET("/sse", movieHandler::moviesSSE)
+				. GET("/sse/sink", movieHandler::moviesSink)
 				. POST(accept(MediaType.APPLICATION_JSON), movieHandler::save)
 				. PUT("/{id}", accept(MediaType.APPLICATION_JSON), movieHandler::update)
 				. GET("/{id}", accept(MediaType.APPLICATION_JSON), movieHandler::movieById)
