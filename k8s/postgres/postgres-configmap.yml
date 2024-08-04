@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: reactive-movie-postgres-configmap
+  namespace: reactive-movie-dev
+data:
+  POSTGRES_DB: reactive

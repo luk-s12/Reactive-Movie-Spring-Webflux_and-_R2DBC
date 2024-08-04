@@ -1,4 +1,8 @@
-const movies = new EventSource("//localhost:8080/api/v2/movies/sse/sink");
+let host = window.location.host;
+
+if( host.includes('127.0.0.1') ) host = '127.0.0.1:8080';
+
+const movies = new EventSource(`//${host}/api/v2/movies/sse/sink`);
 
 const form = () => {
     document.getElementById("form").addEventListener("submit", event => {
@@ -12,7 +16,7 @@ const form = () => {
 }
 
 const save = (data) => {
-    fetch("http://localhost:8080/api/v2/movies", {
+    fetch(`http://${host}/api/v2/movies`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"

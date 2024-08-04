@@ -6,8 +6,8 @@ server:
     
 spring:
   r2dbc:
-    url: r2dbc:postgresql://localhost:5432/reactive
-#    url: r2dbc:postgresql://${R2DBC_HOST}/${R2DBC_DB} #Por si se usa la db con docker
+#    url: r2dbc:postgresql://localhost:5432/reactive
+    url: r2dbc:postgresql://${R2DBC_HOST}/${R2DBC_DB} #Por si se usa la db con docker
     username: postgres
     password: 1234
     

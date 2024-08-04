@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sink-app
+  namespace: reactive-movie-dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sink-app
+  template:
+    metadata:
+      labels:
+        app: sink-app
+    spec:
+      containers:
+      - name: sink-app
+        image: luks12/reactive-movie-sink:latest
+        env:
+        - name: DOMAIN_URL
+          value: "reactive-movie-service"
+        ports:
+        - containerPort: 80
+          protocol: TCP
+        resources:
+          requests:
+            cpu: 100m
+            memory: 256Mi
+          limits:
+            cpu: 500m
+            memory: 1Gi

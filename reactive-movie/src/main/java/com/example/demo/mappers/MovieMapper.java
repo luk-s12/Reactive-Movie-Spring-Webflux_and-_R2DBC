@@ -3,14 +3,13 @@ package com.example.demo.mappers;
 import org.mapstruct.BeforeMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.MappingConstants;
 import org.mapstruct.MappingTarget;
 
 import com.example.demo.model.dtos.MovieDTO;
 import com.example.demo.model.entities.Movie;
 import com.example.demo.utils.TimestampUtil;
 
-@Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
+@Mapper(componentModel = "spring")
 public interface MovieMapper {
 
 	MovieDTO toDto(Movie movie);	

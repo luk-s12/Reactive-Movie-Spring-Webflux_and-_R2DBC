@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: reactive-movie-app
+  namespace: reactive-movie-dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: reactive-movie-app
+  template:
+    metadata:
+      labels:
+        app: reactive-movie-app
+    spec:
+      containers:
+      - name: reactive-movie-app
+        image: luks12/reactive-movie:latest
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        env:
+        - name: R2DBC_HOST
+          valueFrom:
+            configMapKeyRef:
+              key: R2DBC_HOST
+              name: reactive-movie-configmap    
+        - name: R2DBC_DB
+          valueFrom:
+            configMapKeyRef:
+              key: R2DBC_DB
+              name: reactive-movie-configmap    
+        resources:
+          requests:
+            cpu: 100m
+            memory: 256Mi
+          limits:
+            cpu: 500m
+            memory: 1Gi
