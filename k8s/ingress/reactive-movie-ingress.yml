@@ -3,14 +3,12 @@ kind: Ingress
 metadata:
   name: reactive-movie-ingress
   namespace: reactive-movie-dev
-  annotations:
-    nginx.ingress.kubernetes.io/rewrite: /api/(.*)/$1
 spec:
   rules:
   - http:
       paths:
         - path: /api
-          pathType: ImplementationSpecific
+          pathType: Prefix
           backend:
             service:
               name: reactive-movie-service
